@@ -1,0 +1,53 @@
+{
+  "name": "postgraphile-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/postgraphile-server/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/postgraphile-server",
+        "main": "apps/postgraphile-server/src/main.ts",
+        "tsConfig": "apps/postgraphile-server/tsconfig.app.json",
+        "assets": ["apps/postgraphile-server/src/assets"],
+        "webpackConfig": "apps/postgraphile-server/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "postgraphile-server:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "postgraphile-server:build:development"
+        },
+        "production": {
+          "buildTarget": "postgraphile-server:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/postgraphile-server/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowJs": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "strict": true,
+    "types": ["vite/client", "vitest"],
+    "baseUrl": "src"
+  }, 
+  // "paths": {
+  //   // "@trpc": ["trpc"], // use @trpc on the client side
+  //   "trpc": ["../main-server"] // it just fulfills the typescript reference for the server stuff
+  // },
+  "files": [],
+  "include": [],
+  "references": [
+    { "path": "../main-server" },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ],
+  "extends": "../../tsconfig.base.json"
+}
