@@ -1,31 +1,39 @@
-// import styles from './app.module.css';
 import { Route, Routes } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-// import ExampleComponent from './components/Tr';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { httpBatchLink } from '@trpc/client';
+import { createWSClient, httpBatchLink, splitLink, wsLink } from '@trpc/client';
 import { useState } from 'react';
 import { trpc } from '../utils/trpc';
 import CreateEventForm from './components/CreateEvent';
 import Tr from './components/Tr';
-import Interactions from './components/Map';
-import Map2 from './components/Map2';
-// import Popups from './components/Map';
+import MapWithIcons from './components/Map';
+import AddressAutocomplete from '../utils/AddressAutocomplete';
 
 const App = () => {
 
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
+
     trpc.createClient({
       links: [
-        httpBatchLink({
-          url: 'http://localhost:5555/trpc',
-          headers() {
-            return {
-              authorization: localStorage.getItem('token')?.toString()
-            };
+        splitLink({
+          condition: (op) => {
+            return op.type === 'subscription';
           },
+          true: wsLink({
+            client: createWSClient({
+              url: "ws://localhost:5555/trpc",
+            }),          
+          }),
+          false: httpBatchLink({
+            url: 'http://localhost:5555/trpc',
+            headers() {
+              return {
+                authorization: localStorage.getItem('token')?.toString(),
+              };
+            },
+          }),
         }),
       ],
     })
@@ -37,9 +45,10 @@ const App = () => {
         <Routes>
           <Route path="/pp" Component={CreateEventForm} />
           <Route path="/events" Component={Tr} />
-          <Route path="/" Component={SignUp} />
+          <Route path="/signup" Component={SignUp} />
           <Route path="/signin" Component={SignIn} />
-          <Route path="/map" Component={Map2} />
+          <Route path="/map" Component={MapWithIcons} />
+          {/* <Route path="/adr" Component={AddressAutocomplete} /> */}
         </Routes>
       </QueryClientProvider>
     </trpc.Provider>

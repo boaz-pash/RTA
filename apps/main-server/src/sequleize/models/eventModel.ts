@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import sequelize from '../index';
 // import {Ievent} from 'utils/eventType';
 
@@ -18,8 +18,9 @@ const EventModel = sequelize.define('event', {
   },
   event_location: {
     type: DataTypes.STRING,
-  },event_cord: {
-    type: DataTypes.STRING,
+  },
+  event_cord: {
+    type: DataTypes.ARRAY(DataTypes.FLOAT),
   },
   event_date: {
     type: DataTypes.DATE,

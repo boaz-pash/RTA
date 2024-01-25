@@ -2,7 +2,9 @@ import EventModel from 'sequleize/models/eventModel';
 import { publicProcedure, router } from '.';
 import UserModel from 'sequleize/models/userModel';
 import { Ievent } from 'utils/eventType';
-import { z } from 'zod';
+// import { EventEmitter } from 'events';
+
+// const ee = new EventEmitter();
 
 const queriesRouter = router({
   users: publicProcedure.query(async () => {

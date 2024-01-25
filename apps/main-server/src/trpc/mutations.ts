@@ -2,6 +2,9 @@ import { eventSchema } from '../zVelidation';
 import { publicProcedure, router } from '.';
 import EventModel from '../sequleize/models/eventModel';
 import convertAddressToCord from 'utils/convertAddressToCord';
+// import { EventEmitter } from 'events';
+import { ee } from './subscriptions';
+import { Ievent } from 'utils/eventType';
 
 const mutationsRouter = router({
   createEvent: publicProcedure.input(eventSchema).mutation(async (opts) => {
@@ -14,7 +17,8 @@ const mutationsRouter = router({
         created_at: new Date(),
         updated_at: new Date(),
       });
-      // console.log('Event created:', createdEvent.toJSON())
+      const event: Ievent = createdEvent.get();
+      ee.emit('sss', event);
       return createdEvent.toJSON();
     } catch (error) {
       console.error('Error creating event:', error);
