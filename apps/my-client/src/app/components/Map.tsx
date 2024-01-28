@@ -5,6 +5,7 @@ import { RFeature, RLayerVector, RMap, ROSM, ROverlay, RStyle } from 'rlayers';
 import icon from '../../utils/svg/monument';
 import { trpc } from '../../utils/trpc';
 import { Data } from 'ws';
+import { Link } from 'react-router-dom';
 
 type Location = {
   id: string | number;
@@ -61,6 +62,22 @@ const MapWithIcons = () => {
           ))}
         </RLayerVector>
       </RMap>
+      <div className="flex">
+          <div className="w-1/2 pr-8">
+            {/* Map View */}
+            {/* ... (unchanged) */}
+            <Link to="/map-view" className="text-blue-500 hover:underline">
+            Map View
+          </Link>
+          </div>
+          <div className="w-1/2">
+            {/* List View */}
+            {/* ... (unchanged) */}
+            <Link to="/list-view" className="text-blue-500 hover:underline">
+            List View
+          </Link>
+          </div>
+        </div>
     </>
   );
 };

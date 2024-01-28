@@ -151,6 +151,7 @@ const CreateEventForm: React.FC = () => {
   const [eventData, setEventData] = useState({
     event_name: '',
     event_description: '',
+    event_location: '',
     event_date: '',
   });
 
@@ -167,7 +168,7 @@ const CreateEventForm: React.FC = () => {
       // You can use eventData and eventLocation to create your event
       const eventToCreate = {
         ...eventData,
-        event_location: eventLocation?.address!,
+        // event_location: eventLocation?.address!,
         // Other properties based on your data structure
       };
 
@@ -217,8 +218,14 @@ const CreateEventForm: React.FC = () => {
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Event Location:
-          </label>
-          <AddressAutocomplete onSelect={handleAddressSelect} />
+          </label><input
+            type="text"
+            name="event_location"
+            value={eventData.event_location}
+            onChange={handleChange}
+            className="border rounded w-full py-2 px-3"
+          />
+          {/* <AddressAutocomplete onSelect={handleAddressSelect} /> */}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">

@@ -9,12 +9,18 @@ import CreateEventForm from './components/CreateEvent';
 import Tr from './components/Tr';
 import MapWithIcons from './components/Map';
 import AddressAutocomplete from '../utils/AddressAutocomplete';
+import Navbar from './components/Navbar';
+import HeroSection from './components/HeroSection';
+import Layout from './components/Layout';
+import Layot from './components/Layout';
+import UserDashboard from './components/UserDashBooard';
+import  Events  from './components/Events';
+import LandingPage from './components/LandingPage';
+import ListView from './components/ListView';
 
 const App = () => {
-
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
-
     trpc.createClient({
       links: [
         splitLink({
@@ -23,8 +29,8 @@ const App = () => {
           },
           true: wsLink({
             client: createWSClient({
-              url: "ws://localhost:5555/trpc",
-            }),          
+              url: 'ws://localhost:5555/trpc',
+            }),
           }),
           false: httpBatchLink({
             url: 'http://localhost:5555/trpc',
@@ -42,14 +48,26 @@ const App = () => {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        <Routes>
-          <Route path="/pp" Component={CreateEventForm} />
-          <Route path="/events" Component={Tr} />
-          <Route path="/signup" Component={SignUp} />
-          <Route path="/signin" Component={SignIn} />
-          <Route path="/map" Component={MapWithIcons} />
-          {/* <Route path="/adr" Component={AddressAutocomplete} /> */}
-        </Routes>
+        <Layot>
+          <Routes>
+          {/* <Route path="/" Component={LandingPage} /> */}
+            <Route path="/" Component={HeroSection} />
+            <Route path="/userdashboard" Component={UserDashboard} />
+            <Route path="/create-event" Component={CreateEventForm} />
+            <Route path="/events" Component={Events} />
+            <Route path="/signup" Component={SignUp} />
+            <Route path="/login" Component={SignIn} />
+            <Route path="/map-view" Component={MapWithIcons} />
+            <Route path="/list-view" Component={ListView} />
+            {/* <Route path="/adr" Component={AddressAutocomplete} />  */}
+          </Routes>
+        </Layot>
+
+        <div>
+          {/* <Navbar /> */}
+          {/* <HeroSection /> */}
+          {/* Add more sections as needed */}
+        </div>
       </QueryClientProvider>
     </trpc.Provider>
   );

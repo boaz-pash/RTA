@@ -42,6 +42,7 @@ const SignIn: React.FC = () => {
   };
 
   return (
+    <div className="bg-blue-600 text-white py-20">
     <form
       className="max-w-md mx-auto mt-8 p-8 bg-white rounded-md shadow-lg border border-gray-300"
       onSubmit={handleSubmit(onSubmit)}
@@ -100,7 +101,7 @@ const SignIn: React.FC = () => {
       </button>
 
       {error && <p className="text-red-500 mt-2">Error: {error.message}</p>}
-    </form>
+    </form></div>
   );
 };
 

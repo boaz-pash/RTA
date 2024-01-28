@@ -17,7 +17,7 @@ const mutationsRouter = router({
         created_at: new Date(),
         updated_at: new Date(),
       });
-      const event: Ievent = createdEvent.get();
+            const event: Ievent = createdEvent.get();
       ee.emit('sss', event);
       return createdEvent.toJSON();
     } catch (error) {
