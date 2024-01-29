@@ -140,7 +140,8 @@
 // export default CreateEventForm;
 import React, { useState } from 'react';
 import { trpc } from '../../utils/trpc';
-import AddressAutocomplete from '../../utils/AddressAutocomplete';
+import AddressAutocomplete from '../../utils/GeoapifyAutocompleteInput';
+import GeoapifyAutocompleteInput from '../../utils/GeoapifyAutocompleteInput';
 
 type Address = {
   address: string;
@@ -155,11 +156,11 @@ const CreateEventForm: React.FC = () => {
     event_date: '',
   });
 
-  const [eventLocation, setEventLocation] = useState<Address | null>(null);
-
-  const handleAddressSelect = (selectedAddress: Address) => {
-    setEventLocation(selectedAddress);
-  };
+  // const [eventLocation, setEventLocation] = useState<string | null>(null);
+  const [selectedAddress, setSelectedAddress] = useState<string>('');
+  // const handleAddressSelect = (selectedAddress: string) => {
+  //   setEventLocation(selectedAddress);
+  // };
 
   const { data, error, isLoading, mutate } = trpc.mutations.createEvent.useMutation();
 
@@ -168,7 +169,7 @@ const CreateEventForm: React.FC = () => {
       // You can use eventData and eventLocation to create your event
       const eventToCreate = {
         ...eventData,
-        // event_location: eventLocation?.address!,
+        event_location: selectedAddress,
         // Other properties based on your data structure
       };
 
@@ -186,7 +187,11 @@ const CreateEventForm: React.FC = () => {
       [name]: value,
     }));
   };
+  
 
+  const handleAddressSelect = (address: string) => {
+    setSelectedAddress(address);
+  };
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded shadow-md">
       <h2 className="text-2xl font-semibold mb-4">Create Event</h2>
@@ -218,13 +223,14 @@ const CreateEventForm: React.FC = () => {
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Event Location:
-          </label><input
+           </label><GeoapifyAutocompleteInput onSelect={handleAddressSelect} />
+          {/* <input
             type="text"
             name="event_location"
             value={eventData.event_location}
             onChange={handleChange}
             className="border rounded w-full py-2 px-3"
-          />
+          />  */}
           {/* <AddressAutocomplete onSelect={handleAddressSelect} /> */}
         </div>
         <div className="mb-4">

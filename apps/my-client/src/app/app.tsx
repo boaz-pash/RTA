@@ -8,7 +8,7 @@ import { trpc } from '../utils/trpc';
 import CreateEventForm from './components/CreateEvent';
 import Tr from './components/Tr';
 import MapWithIcons from './components/Map';
-import AddressAutocomplete from '../utils/AddressAutocomplete';
+import AddressAutocomplete from '../utils/GeoapifyAutocompleteInput';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import Layout from './components/Layout';
@@ -17,6 +17,7 @@ import UserDashboard from './components/UserDashBooard';
 import  Events  from './components/Events';
 import LandingPage from './components/LandingPage';
 import ListView from './components/ListView';
+import GeoapifyAutocompleteInput from '../utils/GeoapifyAutocompleteInput';
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
@@ -59,7 +60,7 @@ const App = () => {
             <Route path="/login" Component={SignIn} />
             <Route path="/map-view" Component={MapWithIcons} />
             <Route path="/list-view" Component={ListView} />
-            {/* <Route path="/adr" Component={AddressAutocomplete} />  */}
+            <Route path="/adr" Component={GeoapifyAutocompleteInput} /> 
           </Routes>
         </Layot>
 
